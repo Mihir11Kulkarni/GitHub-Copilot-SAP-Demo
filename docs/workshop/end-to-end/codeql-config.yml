@@ -1,0 +1,6 @@
+# Prompt: "Minimal custom CodeQL config enabling javascript queries."
+name: codeql-config
+paths:
+  - .
+queries:
+  - uses: security-and-quality

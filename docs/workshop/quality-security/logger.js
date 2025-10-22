@@ -1,0 +1,1 @@
+module.exports = function createLogger(correlationId='NA') { const e=(lvl,msg,extra={})=>console.log(JSON.stringify({ts:new Date().toISOString(),level:lvl,message:msg,correlationId,...extra})); return {info:(m,x)=>e('INFO',m,x),warn:(m,x)=>e('WARN',m,x),error:(m,x)=>e('ERROR',m,x)} }

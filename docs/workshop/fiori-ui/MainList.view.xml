@@ -1,0 +1,24 @@
+<mvc:View controllerName="workshop.product.app.controller.MainList" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+  <Page title="Products">
+    <content>
+      <Table id="tblProducts" items="{path: '/Product'}">
+        <columns>
+          <Column><Text text="ID"/></Column>
+          <Column><Text text="Name"/></Column>
+          <Column><Text text="Stock"/></Column>
+          <Column><Text text="Last Updated"/></Column>
+        </columns>
+        <items>
+          <ColumnListItem>
+            <cells>
+              <Text text="{ID}"/>
+              <Text text="{Name}"/>
+              <ObjectNumber number="{Stock}"/>
+              <Text text="{LastUpdated}"/>
+            </cells>
+          </ColumnListItem>
+        </items>
+      </Table>
+    </content>
+  </Page>
+</mvc:View>

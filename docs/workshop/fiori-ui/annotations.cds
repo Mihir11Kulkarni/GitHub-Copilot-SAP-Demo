@@ -1,0 +1,1 @@
+annotate ProductService.Product with @UI: { lineItem: [ { value: ID }, { value: Name }, { value: Stock }, { value: LastUpdated } ], selectionFields: [ Name, Stock ] };

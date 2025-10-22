@@ -1,0 +1,9 @@
+{
+  "sap.app": {
+    "id": "workshop.product.app",
+    "type": "application",
+    "title": "Product Inventory",
+    "dataSources": {"productSrv": {"uri": "/odata/v4/ProductService/", "type": "OData", "settings": {"odataVersion": "4.0"}}}
+  },
+  "sap.ui": {"technology": "UI5"}
+}
