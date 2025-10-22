@@ -486,4 +486,4 @@ Each artifact includes the originating prompt (in comments or README) and result
 | Docs | "Document ProductService using glossary" | Clear domain onboarding |
 
 ## 16. Wrap-Up
-Core workshop guidance plus full end-to-end example and beginner guide. If new to SAP/GitHub, start with `BEGINNER_GUIDE.md` then return here for deeper exploration.
+Core workshop guidance plus full end-to-end example and beginner guide. If new to SAP/GitHub, start with `GUIDE.md` then return here for deeper exploration.
