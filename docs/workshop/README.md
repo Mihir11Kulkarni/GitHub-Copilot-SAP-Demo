@@ -21,7 +21,7 @@ By the end participants can:
 
 ---
 ## 2. Environment Setup
-### VS Code (Primary)
+### VS Code
 Prerequisites:
 - Node.js 18+
 - SAP CDS tools: `npm install -g @sap/cds-dk`
@@ -189,7 +189,7 @@ Next: Optional telemetry & multi-tenancy enhancements.
 CRUD -> ABAP Modernization -> UI -> Tests -> Performance -> Security -> Knowledge Base -> Documentation -> Automation.
 This chain builds understanding and assets for the next layer.
 
-## 4. Repository Structure (Workshop Skeleton)
+## 4. Repository Structure
 ```
 workshop/
   cap-service/
@@ -289,7 +289,7 @@ Refinement Prompt: "Add pagination (limit 50) and order by Stock descending." ->
 const rows = await cds.run(SELECT.from(Product).columns(['ID','Name','Stock']).where({ Plant: '0001' }).orderBy({ Stock: 'desc' }).limit(50))
 ```
 
-### 5.4 Jest Tests (Generated)
+### 5.4 Jest Tests 
 Prompt: "Create Jest tests for ProductService covering create sets LastUpdated and restock action error path." Result:
 ```ts
 import cds from '@sap/cds'
@@ -336,7 +336,7 @@ export default function () {
 | Refactor Quality | "Suggest improvements to handler for readability" | Diff suggestions | Apply selectively |
 
 ---
-## 7. Knowledge Base Setup (GitHub Copilot Enterprise)
+## 7. Knowledge Base Setup 
 Recommended KB Documents:
 - domain-glossary.md (business entities, field semantics)
 - modernization-guidelines.md (ABAP -> CAP patterns, naming, layering)
@@ -359,7 +359,7 @@ KB Quality Prompts:
 - "List anti-patterns from modernization-guidelines.md for ABAP to CAP."
 
 ---
-## 8. GitHub Actions CI (Security & OIDC Snippet)
+## 8. GitHub Actions CI 
 Prompt: "Add CodeQL init, secret scanning, and OIDC deploy job to existing Node workflow." Example fragment:
 ```yaml
 jobs:
@@ -443,7 +443,7 @@ Validation Prompts:
 - "Explain how to handle pagination + filtering together." -> Ensure robust SELECT usage.
 
 ---
-## 12. Quickstart Commands (Reference)
+## 12. Quickstart Commands
 (Note: Run manually; shown for documentation)
 - Initialize CAP: `cds init cap-service`
 - Run service: `cds watch`
@@ -474,7 +474,7 @@ See `end-to-end/` folder (to be generated) for a complete lifecycle:
 Each artifact includes the originating prompt (in comments or README) and resulting output for traceability.
 
 ---
-## 15. Copilot Value Snapshot (Beginner-Friendly)
+## 15. Copilot Value Snapshot 
 | Stage | Copilot Assist | Outcome |
 |-------|----------------|---------|
 | Model | "Create Product entity..." | Ready CDS faster |
