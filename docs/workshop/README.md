@@ -1,6 +1,6 @@
-# GitHub Copilot + SAP Modernization Workshop (Focused + E2E Build)
+# GitHub Copilot + SAP Modernization Workshop
 #
-# New: See `BEGINNER_GUIDE.md` for an absolute beginner, plain-language path (no prior SAP or GitHub knowledge required).
+
 
 ## 1. Workshop Purpose & Outcomes
 This hands-on guide shows how GitHub Copilot accelerates SAP-centric modernization across:
@@ -63,6 +63,132 @@ Workflow (High-Level):
 | Risk Service Addition | Manual design | Prompt microservice with expressive API & telemetry | Extensible resilience | "Create Express risk scoring service returning severity by product stock." |
 
 ---
+### Scenario Guide
+Each scenario below is expanded into a story: what to open, which prompt to use, how to validate, and the logical next step. Follow them in order for a smooth learning path.
+
+#### 1. Create CRUD Service
+Purpose: Establish the Product entity and basic lifecycle hooks.
+Open These:
+- `end-to-end/requirements.md` (understand fields & constraints)
+- `cap-service/schema.cds`
+Prompt Sequence:
+1. "Define an entity Product with fields ID(UUID), Name string(120), Stock Integer, LastUpdated timestamp, derived LowStock flag (<5)."
+2. "Generate CAP handler with before CREATE/UPDATE to set LastUpdated and after READ deriving LowStock." (Refine pseudo in `end-to-end/product-service.ts`.)
+Validation Checklist:
+- All fields & types match requirements
+- `LastUpdated` set before create/update
+- `LowStock` derived (<5)
+Next: Refactor ABAP extraction.
+
+#### 2. Refactor ABAP Extraction
+Purpose: Modernize legacy ABAP data access.
+Open:
+- `abap-modernization/abap-original.zreport.abap`
+- `abap-modernization/abap-transformed-handler.ts`
+Prompt Sequence:
+1. Paste ABAP: "Convert this ABAP SELECT into CAP cds.run query mapping matnr->ID, maktx->Name, labst->Stock with limit 50 order by Stock desc."
+2. "Explain scalability/testability improvements vs ABAP code."
+Validation:
+- Field mapping correct
+- Filter retained
+- Pagination + ordering applied
+Next: Build UI list view.
+
+#### 3. Fiori List UI
+Purpose: Visualize Products with key fields.
+Open:
+- `fiori-ui/manifest.json`
+- `fiori-ui/annotations.cds`
+- `fiori-ui/MainList.view.xml`
+- `fiori-ui/MainList.controller.js`
+Prompt Sequence:
+1. "Generate annotations for Product list view with sortable Name and filterable Stock." (Adjust existing.)
+2. "Add LowStock YES/NO indicator column to the XML view." 
+Validation:
+- Columns: ID, Name, Stock, LastUpdated (+ optional LowStock)
+- Refresh works
+Next: Add tests.
+
+#### 4. Add Jest Tests
+Purpose: Early quality & regression safety.
+Open: `quality-security/product.test.ts`
+Prompt Sequence:
+1. "Create Jest tests for Product service covering create sets LastUpdated, restock negative amount error, restock success." 
+2. "Add test for large restock amount to ensure no overflow issues." (Optional)
+Validation:
+- Assertions for timestamp & error path
+- Descriptive names
+Next: Performance baseline.
+
+#### 5. Performance Baseline
+Purpose: Capture initial load behavior.
+Open: `quality-security/k6-script.js`
+Prompt Sequence:
+1. "Generate k6 script for GET /odata/v4/ProductService/Product with 20 VUs for 30s including status 200 check." 
+2. "Add p95 response time threshold < 500ms." 
+Validation:
+- Script GETs list endpoint
+- Threshold defined (if added)
+Next: Secure pipeline.
+
+#### 6. Secure Pipeline
+Purpose: Shift-left security scanning.
+Open:
+- `quality-security/workflow.yml`
+- `quality-security/codeql-config.yml`
+Prompt Sequence:
+1. "Add CodeQL init/analyze steps to Node workflow with least permissions." 
+2. "Suggest improvements removing unnecessary permissions from workflow.yml." 
+Validation:
+- Separate build & CodeQL jobs
+- Minimal deploy permissions
+Next: Knowledge Base.
+
+#### 7. Knowledge Reuse (Knowledge Base)
+Purpose: Improve prompt fidelity using shared glossary & guidelines.
+Open:
+- `governance-domain/domain-glossary.md`
+- `governance-domain/modernization-guidelines.md`
+- `governance-domain/logging-standards.md`
+- `governance-domain/knowledge-base.md`
+Prompt Sequence:
+1. "Document ProductService using glossary definitions for Stock and LowStock." 
+2. "Summarize modernization-guidelines.md into a migration checklist." 
+3. "List anti-patterns from modernization-guidelines.md for ABAP to CAP migration." 
+Validation:
+- Glossary terms appear
+- Checklist actionable
+Next: Documentation expansion.
+
+#### 8. Documentation Expansion
+Purpose: Clear architecture & onboarding clarity.
+Open: `README.md`, `BEGINNER_GUIDE.md`, `governance-domain/README.md`
+Prompt Sequence:
+1. "Draft architecture overview covering CAP service, Fiori UI, CI security, and risk service extension." 
+2. "Generate onboarding checklist referencing glossary terms." 
+Validation:
+- Architecture doc references all layers
+- Onboarding list mirrors quickstart commands
+Next: Agentic automation.
+
+#### 9. Risk Service Addition (Agentic Automation)
+Purpose: Extend functionality with intelligent scoring.
+Open:
+- `agentic-automation/risk-service.js`
+- `agentic-automation/prompts-cheatsheet.md`
+Prompt Sequence:
+1. "Create Express risk scoring service returning severity by product stock." (Already present)
+2. "Propose integration in CAP after READ to enrich LowStock products with severity." 
+3. "Suggest telemetry fields for risk evaluation logging." 
+Validation:
+- Severity logic matches thresholds
+- Integration path documented
+Next: Optional telemetry & multi-tenancy enhancements.
+
+#### Progression Path Recap
+CRUD -> ABAP Modernization -> UI -> Tests -> Performance -> Security -> Knowledge Base -> Documentation -> Automation.
+This chain builds understanding and assets for the next layer.
+
 ## 4. Repository Structure (Workshop Skeleton)
 ```
 workshop/
