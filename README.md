@@ -1,6 +1,6 @@
-# GitHub Copilot + SAP Modernization Workshop (Focused + E2E Build)
+# GitHub Copilot + SAP Modernization Workshop
 #
-# New: See `BEGINNER_GUIDE.md` for an absolute beginner, plain-language path (no prior SAP or GitHub knowledge required).
+
 
 ## 1. Workshop Purpose & Outcomes
 This hands-on guide shows how GitHub Copilot accelerates SAP-centric modernization across:
@@ -63,7 +63,7 @@ Workflow (High-Level):
 | Risk Service Addition | Manual design | Prompt microservice with expressive API & telemetry | Extensible resilience | "Create Express risk scoring service returning severity by product stock." |
 
 ---
-### Scenario Story Guide (Step-by-Step Narrative)
+### Scenario Guide
 Each scenario below is expanded into a story: what to open, which prompt to use, how to validate, and the logical next step. Follow them in order for a smooth learning path.
 
 #### 1. Create CRUD Service
