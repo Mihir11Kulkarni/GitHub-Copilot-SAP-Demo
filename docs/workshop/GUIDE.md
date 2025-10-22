@@ -1,9 +1,9 @@
-# Beginner Guide: GitHub Copilot + SAP Modernization
+# Guide: GitHub Copilot + SAP Modernization
 
-## 1. What You Are Building (Plain Language)
+## 1. What You Are Building 
 You will turn a simple inventory listing (old program) into a modern service and a small web UI. Along the way you use GitHub Copilot to write code, tests, documentation, and automation faster.
 
-## 2. The Pieces (Simple Definitions)
+## 2. The Pieces 
 | Term | Simple Meaning |
 |------|----------------|
 | SAP | Software many companies use to manage business processes (sales, inventory, finance). |
@@ -17,7 +17,7 @@ You will turn a simple inventory listing (old program) into a modern service and
 | CodeQL | Security/quality analysis for code. |
 | k6 | Tool to check performance (speed) under load. |
 
-## 3. Why Copilot Helps (Value Map)
+## 3. Why Copilot Helps 
 | Task | Without Copilot | With Copilot | Benefit |
 |------|-----------------|--------------|---------|
 | Create data model | Read docs, write manually | Prompt: "Create Product entity..." | Minutes saved; fewer mistakes |
@@ -27,7 +27,7 @@ You will turn a simple inventory listing (old program) into a modern service and
 | Add CI workflow | Search examples | Prompt: "Add CodeQL + build steps" | Quick security integration |
 | Performance check | Learn k6 syntax | Prompt: "Generate k6 script for Product list" | Immediate baseline |
 
-## 4. Guided Path (Do These In Order)
+## 4. Guided Path 
 1. Read requirements: `end-to-end/requirements.md`
 2. Open `schema.cds`, ask: "Explain each field in plain language." (Copilot Chat)
 3. Prompt: "Generate CAP handler with restock action and LowStock flag." (You have pseudo-code already; refine.)
@@ -107,7 +107,7 @@ npm test
 - Explore adding a second action: "Generate action flagLowStock for manual override." 
 - Add a README section: "Describe how Copilot accelerated each step." using prompt.
 
-## 12. FAQ (Simple)
+## 12. FAQ 
 | Question | Plain Answer |
 |----------|--------------|
 | Do I need to know ABAP? | No, you only copy a snippet and ask Copilot to translate. |
