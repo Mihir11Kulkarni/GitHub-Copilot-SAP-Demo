@@ -51,23 +51,23 @@ Choose your learning path based on your experience level:
 ### For Beginners (Level 100)
 ```bash
 # Clone the workshop
-git clone -b workshop https://github.com/Mihir11Kulkarni/GitHub-Copilot-SAP-Demo.git
+git clone -b DEMO1 https://github.com/Mihir11Kulkarni/GitHub-Copilot-SAP-Demo.git
 cd GitHub-Copilot-SAP-Demo
 
-# Start with Level 100 Guide
-open docs/workshop/LEVEL-100-GUIDE.md
+# Start with fundamentals
+code docs/workshop/LEVEL-100-GUIDE.md
 ```
 
 ### For Experienced Developers (Level 200)
 ```bash
-# If you've completed Level 100 or have Copilot experience
-open docs/workshop/LEVEL-200-GUIDE.md
+# Advanced techniques and enterprise patterns
+code docs/workshop/LEVEL-200-GUIDE.md
 ```
 
-### For Testing Focus
+### For Testing Excellence
 ```bash
-# Deep dive into testing capabilities
-open docs/workshop/TEST-CASES-SPOTLIGHT.md
+# Comprehensive testing strategies
+code docs/workshop/TEST-CASES-SPOTLIGHT.md
 ```
 
 ---
@@ -135,39 +135,8 @@ GitHub-Copilot-SAP-Demo/
 
 ---
 
-## 🎓 Certification Path
+## 🚀 Get Started
 
-1. **Complete Level 100** - Master fundamental Copilot features
-2. **Complete Level 200** - Achieve advanced prompt engineering skills  
-3. **Complete Test Spotlight** - Demonstrate testing excellence
-4. **Build Capstone Project** - Apply skills to real-world scenario
-5. **Share Knowledge** - Mentor others or contribute to community
+Transform your SAP development workflow with GitHub Copilot. Choose your starting point and begin building enterprise-grade solutions faster than ever before.
 
----
-
-## 🤝 Contributing
-
-Help improve this workshop:
-- Submit feedback on learning materials
-- Share advanced prompt patterns
-- Contribute test case examples
-- Translate content for global teams
-
----
-
-## 📞 Support
-
-- **Issues:** [GitHub Issues](https://github.com/Mihir11Kulkarni/GitHub-Copilot-SAP-Demo/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/Mihir11Kulkarni/GitHub-Copilot-SAP-Demo/discussions)
-- **Community:** Join SAP Community GitHub Copilot group
-
----
-
-## 📚 Additional Resources
-
-- [GitHub Copilot Documentation](https://docs.github.com/en/copilot)
-- [SAP CAP Documentation](https://cap.cloud.sap/docs/)
-- [SAP Fiori Design Guidelines](https://experience.sap.com/fiori-design-web/)
-- [ABAP Development Guidelines](https://help.sap.com/docs/abap-cloud)
-
-**Ready to transform your SAP development with GitHub Copilot? Start with [Level 100](docs/workshop/LEVEL-100-GUIDE.md)!**
+**Ready to begin?** Start with [Level 100 Guide](docs/workshop/LEVEL-100-GUIDE.md) for fundamentals or jump to [Level 200 Guide](docs/workshop/LEVEL-200-GUIDE.md) for advanced techniques.
