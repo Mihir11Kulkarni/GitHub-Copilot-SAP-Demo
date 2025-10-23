@@ -118,6 +118,4 @@ export class ProductService extends cds.ApplicationService {
 
 ---
 
----
-
 **🎉 Congratulations!** You've successfully set up MCP for SAP development. Your GitHub Copilot is now enterprise-aware and ready to accelerate your SAP development!
