@@ -1,6 +1,54 @@
 # GitHub Copilot + SAP Modernization Workshop
 #
 
+Consolidated Scenario & Artifact Table
+
+| # | Scenario / Stage | Purpose | Key Files / Paths | Core Prompt Anchor | Validation Checklist | Progression / Next |
+|---|------------------|---------|-------------------|--------------------|----------------------|--------------------|
+| 1 | Requirements & Domain | Capture business + non-functional needs | end-to-end/requirements.md, end-to-end/user-stories.md, docs/knowledge-base/domain-glossary.md | "Summarize requirements into key fields and constraints." | Fields, KPIs, acceptance criteria present | Model (CDS) |
+| 2 | CDS Domain Model | Define Product entity with semantics | cap-service/db/schema.cds or end-to-end/schema.cds | "Define an entity Product with fields ID(UUID), Name, Stock, LastUpdated, derived LowStock (<5)." | Types correct, derived flag logic documented | Service handler |
+| 3 | CAP Service Handler | Implement lifecycle logic + business action | cap-service/srv/product-service.ts, end-to-end/product-service.ts | "Generate CAP handler setting LastUpdated before CREATE/UPDATE and deriving LowStock after READ." | Hooks execute, LastUpdated set, LowStock computed | Add restock action |
+| 4 | Custom Action (restock) | Add business rule & mutation logic | cap-service/srv/product-service.ts | "Add restock action validating positive amount and returning updated product." | Positive validation, Stock increment persists, timestamp updated | ABAP modernization |
+| 5 | ABAP Modernization | Translate legacy extraction to CAP query | abap-modernization/original/z_report_sample.abap, abap-modernization/transformed/productExtractHandler.ts | "Convert this ABAP SELECT into CAP cds.run query mapping matnr->ID..." | Field mapping, filters retained, limit + order applied | UI scaffolding |
+| 6 | Fiori/UI Scaffold | Provide list/report visualization | fiori-ui/webapp/manifest.json, fiori-ui/webapp/annotations.cds, fiori-ui/webapp/src/MainList.view.xml, MainList.controller.js | "Generate annotations for Product list view..." | Columns render (ID, Name, Stock, LastUpdated, LowStock), refresh works | Test suite |
+| 7 | Jest Tests | Establish early regression safety | cap-service/test/product.test.ts or end-to-end/product.test.ts | "Create Jest tests for Product service covering create sets LastUpdated..." | Timestamp asserted, negative action path tested | Performance baseline |
+| 8 | Performance Baseline | Capture initial latency & throughput | performance/k6-script.js or end-to-end/k6-script.js | "Generate k6 script hitting /odata/v4/ProductService/Product..." | 200 status check, duration & VUs configured, optional p95 threshold | Security pipeline |
+| 9 | Security & CI | Shift-left scanning & least-privilege | ci/workflow.yml, ci/codeql-config.yml | "Add CodeQL init/analyze and secret scanning steps..." | Build + scan jobs separated, minimal permissions, secrets not hardcoded | Knowledge Base |
+| 10 | Knowledge Base Enablement | Enhance prompt fidelity & consistency | docs/knowledge-base/domain-glossary.md, modernization-guidelines.md, logging-standards.md, knowledge-base.md | "Document ProductService using glossary definitions..." | Glossary terms appear, anti-pattern list extracted | Documentation expansion |
+| 11 | Documentation Expansion | Create architecture & onboarding clarity | docs/workshop/README.md, BEGINNER_GUIDE.md, governance-domain/README.md | "Draft architecture overview covering CAP service, Fiori UI, CI security..." | All layers referenced, onboarding steps match quickstart | Agentic automation |
+| 12 | Agentic Risk Service | Enrich low-stock data with severity score | agentic-automation/risk-service.js, agentic-automation/prompts-cheatsheet.md | "Create Express risk scoring service returning severity..." | Severity mapping correct, integration plan documented | Telemetry & enhancements |
+| 13 | Logging & Observability | Structured logs for traceability | end-to-end/logger.js, logging-standards.md | "Generate minimal structured JSON logger with correlationId..." | Levels implemented, correlationId injected | Telemetry + multi-tenancy |
+| 14 | Governance & ADRs | Capture decisions & modernization rules | end-to-end/ADR-001-adopt-cap.md, modernization-guidelines.md | "Generate ADR for adopting CAP..." | Decision context, alternatives, rationale present | Scaling & pilot |
+| 15 | Edge Cases & Validation | Surface risk and concurrency issues | README (Edge Cases), product-service.ts | "List potential race conditions in restock handler." | Race conditions identified, mitigation options listed | Hardening |
+| 16 | Pilot & Roadmap | Plan expansion & KPI tracking | README Wrap-Up, requirements KPIs | "List next enhancements for scalability." | KPIs defined (time saved, coverage), roadmap draft | Execution / scaling |
+
+### Quick Cross-Reference (File Origin vs Prompt)
+| File | Origin Prompt (Representative) |
+|------|--------------------------------|
+| schema.cds | "Define an entity Product..." |
+| product-service.ts | "Generate CAP handler..." + "Add restock action..." |
+| productExtractHandler.ts | "Convert this ABAP SELECT..." |
+| annotations.cds | "Generate annotations for Product list view..." |
+| MainList.view.xml | "Add LowStock YES/NO indicator column..." |
+| product.test.ts | "Create Jest tests for Product service..." |
+| k6-script.js | "Generate k6 script hitting /odata..." |
+| workflow.yml | "Add CodeQL init, secret scanning..." |
+| domain-glossary.md | "Create domain glossary for Product inventory terms." |
+| ADR-001-adopt-cap.md | "Draft ADR choosing CAP over ABAP enhancements." |
+| risk-service.js | "Create Express risk scoring service..." |
+| logger.js | "Generate minimal structured JSON logger..." |
+
+### Starter Prompt Pack
+1. Define an entity Product with fields ID(UUID), Name String(120), Stock Integer, LastUpdated Timestamp, derived LowStock (<5).
+2. Generate CAP handler setting LastUpdated before CREATE/UPDATE and deriving LowStock after READ.
+3. Add restock action validating positive amount and returning updated product.
+4. Convert this ABAP SELECT into CAP cds.run query mapping matnr->ID, maktx->Name, labst->Stock with limit 50 order by Stock desc.
+5. Generate annotations for Product list view with sortable Name and filterable Stock plus LowStock indicator.
+6. Create Jest tests for Product service covering create sets LastUpdated and restock negative amount error.
+7. Generate k6 script hitting /odata/v4/ProductService/Product with 20 VUs for 30s including status 200 check and p95 < 500ms.
+8. Add CodeQL init/analyze and secret scanning steps with least permissions to this workflow.
+9. Document ProductService using glossary definitions for Stock threshold and LastUpdated semantics.
+10. Create Express risk scoring service returning severity based on product stock.
 
 ## 1. Workshop Purpose & Outcomes
 This hands-on guide shows how GitHub Copilot accelerates SAP-centric modernization across:
