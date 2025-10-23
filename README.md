@@ -15,6 +15,7 @@ This workshop demonstrates how GitHub Copilot revolutionizes SAP development acr
 - **UI Development** → SAP Fiori with modern frameworks
 - **Testing Excellence** → Comprehensive test automation
 - **Security & Performance** → Enterprise-grade solutions
+- **🆕 MCP Integration** → Enterprise context-aware AI assistance
 
 ### 🏆 What Makes This Workshop Unique
 - ✅ **Real SAP Scenarios** - Actual business use cases, not toy examples
@@ -22,6 +23,7 @@ This workshop demonstrates how GitHub Copilot revolutionizes SAP development acr
 - ✅ **Progressive Learning** - Structured path from basics to advanced
 - ✅ **Hands-On Experience** - Build working applications, not just demos
 - ✅ **Testing Excellence** - Special focus on comprehensive testing strategies
+- ✅ **🆕 Enterprise MCP Setup** - Connect GitHub Copilot to your SAP landscape
 
 ---
 
@@ -53,6 +55,13 @@ cds version
 
 # Optional: Install SAP Fiori tools
 npm install -g @sap/generator-fiori
+```
+
+### 🆕 Optional: MCP Server for Enterprise Integration
+```bash
+# For admin teams setting up enterprise-wide SAP context
+# See MCP Server Setup Guide for complete instructions
+npm install -g @modelcontextprotocol/server-kit
 ```
 
 ---
@@ -96,6 +105,15 @@ code docs/workshop/TEST-CASES-SPOTLIGHT.md
 
 # Testing examples and templates
 code docs/workshop/testing-examples/
+```
+
+#### 🆕 **🏢 Enterprise Admin Setup**
+```bash
+# MCP Server setup for connecting GitHub Copilot to SAP systems
+code docs/workshop/mcp-server-setup/README.md
+
+# Quick start MCP deployment
+code docs/workshop/mcp-server-setup/QUICK-START.md
 ```
 
 ---
@@ -238,6 +256,38 @@ This workshop places **special emphasis on testing** - a critical but often over
 
 ---
 
+### 🆕 **🏢 MCP Server Setup** - *Enterprise SAP Context Integration*
+
+**Target Audience:** Enterprise admin teams and solution architects
+
+Connect GitHub Copilot directly to your SAP landscape for context-aware development assistance.
+
+#### What is MCP for SAP?
+- **Model Context Protocol** integration with SAP systems
+- **Real-time SAP context** - table structures, business rules, code patterns
+- **Enterprise knowledge** - organizational standards and best practices
+- **Seamless integration** - No disruption to existing development workflows
+
+#### Key Benefits
+- ✅ **3-5x faster development** with SAP-aware code generation
+- ✅ **Consistent quality** using extracted organizational patterns
+- ✅ **Reduced errors** with real SAP business rule validation
+- ✅ **Knowledge preservation** from legacy systems and expert developers
+
+#### Quick Setup (15 minutes)
+```bash
+# Admin team setup - connect to SAP systems
+git clone -b DEMO1 https://github.com/Mihir11Kulkarni/GitHub-Copilot-SAP-Demo.git
+cd docs/workshop/mcp-server-setup
+
+# Follow the quick start guide
+code QUICK-START.md
+```
+
+**Enterprise Setup Guide:** 📖 [MCP Server Setup](docs/workshop/mcp-server-setup/README.md)
+
+---
+
 ## 🎯 Learning Outcomes & Achievements
 
 ### 🎓 After Level 100, You Will Master:
@@ -258,6 +308,12 @@ This workshop places **special emphasis on testing** - a critical but often over
 - 🔄 **Iterative Excellence** - Continuous improvement workflows
 - 🌐 **Enterprise Patterns** - Production-ready implementations
 
+### 🆕 🏢 After MCP Setup, Your Team Will Achieve:
+- 🚀 **SAP-Aware Development** - Context from real SAP systems
+- 📊 **Accelerated Delivery** - 3-5x faster development cycles
+- 🎯 **Consistent Quality** - Organizational standards built-in
+- 🔗 **Seamless Integration** - Works with existing SAP landscape
+
 ---
 
 ## 📁 Complete Repository Structure
@@ -270,6 +326,11 @@ GitHub-Copilot-SAP-Demo/
 │   │   ├── LEVEL-100-GUIDE.md          # 🟢 Beginner learning path
 │   │   ├── LEVEL-200-GUIDE.md          # 🔵 Advanced techniques  
 │   │   ├── TEST-CASES-SPOTLIGHT.md     # 🧪 Testing excellence guide
+│   │   ├── mcp-server-setup/           # 🆕 🏢 Enterprise MCP setup
+│   │   │   ├── README.md               # Complete MCP guide
+│   │   │   ├── QUICK-START.md          # 15-minute setup
+│   │   │   ├── CONFIGURATION.md        # Technical implementation
+│   │   │   └── TROUBLESHOOTING.md      # Problem resolution
 │   │   ├── GUIDE.md                    # Original quick reference
 │   │   └── scenarios/                  # Hands-on exercises
 │   │       ├── 01-requirements/        # Business analysis
@@ -319,6 +380,12 @@ GitHub-Copilot-SAP-Demo/
 - **Integration**: Company coding standards and practices
 - **Follow-up**: Ongoing support and advanced workshops
 
+### 🆕 **🏢 Enterprise MCP Deployment**
+- **Duration**: 15-minute setup + ongoing optimization
+- **Format**: Admin-led deployment with developer onboarding
+- **Integration**: Seamless connection to existing SAP systems
+- **Support**: Complete troubleshooting and maintenance guides
+
 ---
 
 ## 💡 Getting Maximum Value
@@ -328,25 +395,23 @@ GitHub-Copilot-SAP-Demo/
 2. **Set Learning Goals** - Choose your focus areas
 3. **Prepare Environment** - Clean workspace, good internet
 4. **Enable GitHub Copilot** - Verify all extensions work
+5. **🆕 Consider MCP Setup** - For enterprise teams, review MCP benefits
 
 ### During the Workshop
 1. **Practice Actively** - Type code, don't just read
 2. **Experiment Freely** - Try variations and modifications
 3. **Take Notes** - Document patterns that work well
 4. **Ask Questions** - Use Copilot Chat for explanations
+5. **🆕 Test MCP Integration** - If available, experience SAP-aware assistance
 
 ### After Completion
 1. **Apply Immediately** - Use skills in real projects
 2. **Share Knowledge** - Teach others in your organization
 3. **Continue Learning** - Stay updated with new features
 4. **Contribute Back** - Share improvements and patterns
+5. **🆕 Scale MCP** - Expand enterprise context integration
 
 ---
-
-## 🎯 Success Metrics
-
-Track your progress with these measurable outcomes:
-
 
 ## 🚀 Start Your Journey
 
@@ -356,9 +421,10 @@ Transform your SAP development workflow with GitHub Copilot. Choose your startin
 
 | Experience Level | Recommended Path |
 |------------------|------------------|
-| **New to Copilot** | [Level 100 Guide](docs/workshop/LEVEL-100-GUIDE.md)
-| **Copilot Familiar** | [Level 200 Guide](docs/workshop/LEVEL-200-GUIDE.md)  
-| **Testing Focus** | [Test Cases Spotlight](docs/workshop/TEST-CASES-SPOTLIGHT.md)
+| **New to Copilot** | [Level 100 Guide](docs/workshop/LEVEL-100-GUIDE.md) |
+| **Copilot Familiar** | [Level 200 Guide](docs/workshop/LEVEL-200-GUIDE.md) |  
+| **Testing Focus** | [Test Cases Spotlight](docs/workshop/TEST-CASES-SPOTLIGHT.md) |
+| **🆕 Enterprise Admin** | [MCP Server Setup](docs/workshop/mcp-server-setup/README.md) |
 | **Complete Journey** | All paths sequentially |
 
 ### 🎯 **Quick Start Commands**
@@ -372,6 +438,7 @@ cd GitHub-Copilot-SAP-Demo
 code docs/workshop/LEVEL-100-GUIDE.md    # For beginners
 code docs/workshop/LEVEL-200-GUIDE.md    # For advanced users
 code docs/workshop/TEST-CASES-SPOTLIGHT.md  # For testing focus
+code docs/workshop/mcp-server-setup/README.md  # For enterprise admin setup
 
 # 3. Start building!
 ```
