@@ -354,12 +354,12 @@ Transform your SAP development workflow with GitHub Copilot. Choose your startin
 
 ### 🎬 **Ready to Begin?**
 
-| Experience Level | Recommended Path | Time Investment |
-|------------------|------------------|-----------------|
-| **New to Copilot** | [Level 100 Guide](docs/workshop/LEVEL-100-GUIDE.md) | 4-6 hours |
-| **Copilot Familiar** | [Level 200 Guide](docs/workshop/LEVEL-200-GUIDE.md) | 6-8 hours |  
-| **Testing Focus** | [Test Cases Spotlight](docs/workshop/TEST-CASES-SPOTLIGHT.md) | 2-3 hours |
-| **Complete Journey** | All paths sequentially | 12-17 hours |
+| Experience Level | Recommended Path |
+|------------------|------------------|
+| **New to Copilot** | [Level 100 Guide](docs/workshop/LEVEL-100-GUIDE.md)
+| **Copilot Familiar** | [Level 200 Guide](docs/workshop/LEVEL-200-GUIDE.md)  
+| **Testing Focus** | [Test Cases Spotlight](docs/workshop/TEST-CASES-SPOTLIGHT.md)
+| **Complete Journey** | All paths sequentially |
 
 ### 🎯 **Quick Start Commands**
 
