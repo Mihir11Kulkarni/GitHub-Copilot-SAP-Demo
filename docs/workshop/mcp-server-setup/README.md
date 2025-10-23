@@ -186,9 +186,6 @@ class ProductService extends cds.ApplicationService {
 This MCP setup transforms GitHub Copilot from a generic AI assistant to an enterprise-aware development partner that understands your SAP landscape, business processes, and coding standards.
 
 ### **Next Steps:**
-1. **Quick Setup**: Follow our [15-minute setup guide](QUICK-START.md)
-2. **Configuration**: Review [complete configuration examples](CONFIGURATION.md) 
-3. **Troubleshooting**: Check our [comprehensive troubleshooting guide](TROUBLESHOOTING.md)
-4. **Support**: Contact your platform team for enterprise deployment
+ **Quick Setup**: Follow our [15-minute setup guide](QUICK-START.md)
 
 **The result: faster development, higher quality code, and better alignment with enterprise architecture.** 🎯
