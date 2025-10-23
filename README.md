@@ -1,537 +1,173 @@
 # GitHub Copilot + SAP Modernization Workshop
-#
+## Level 100 & Level 200 Learning Paths
 
-Consolidated Scenario & Artifact Table
+Welcome to the comprehensive GitHub Copilot SAP modernization workshop! This workshop is designed to take you from beginner to expert in using GitHub Copilot for SAP development across the entire technology stack.
 
-| # | Scenario / Stage | Purpose | Key Files / Paths | Core Prompt Anchor | Validation Checklist | Progression / Next |
-|---|------------------|---------|-------------------|--------------------|----------------------|--------------------|
-| 1 | Requirements & Domain | Capture business + non-functional needs | end-to-end/requirements.md, end-to-end/user-stories.md, docs/knowledge-base/domain-glossary.md | "Summarize requirements into key fields and constraints." | Fields, KPIs, acceptance criteria present | Model (CDS) |
-| 2 | CDS Domain Model | Define Product entity with semantics | cap-service/db/schema.cds or end-to-end/schema.cds | "Define an entity Product with fields ID(UUID), Name, Stock, LastUpdated, derived LowStock (<5)." | Types correct, derived flag logic documented | Service handler |
-| 3 | CAP Service Handler | Implement lifecycle logic + business action | cap-service/srv/product-service.ts, end-to-end/product-service.ts | "Generate CAP handler setting LastUpdated before CREATE/UPDATE and deriving LowStock after READ." | Hooks execute, LastUpdated set, LowStock computed | Add restock action |
-| 4 | Custom Action (restock) | Add business rule & mutation logic | cap-service/srv/product-service.ts | "Add restock action validating positive amount and returning updated product." | Positive validation, Stock increment persists, timestamp updated | ABAP modernization |
-| 5 | ABAP Modernization | Translate legacy extraction to CAP query | abap-modernization/original/z_report_sample.abap, abap-modernization/transformed/productExtractHandler.ts | "Convert this ABAP SELECT into CAP cds.run query mapping matnr->ID..." | Field mapping, filters retained, limit + order applied | UI scaffolding |
-| 6 | Fiori/UI Scaffold | Provide list/report visualization | fiori-ui/webapp/manifest.json, fiori-ui/webapp/annotations.cds, fiori-ui/webapp/src/MainList.view.xml, MainList.controller.js | "Generate annotations for Product list view..." | Columns render (ID, Name, Stock, LastUpdated, LowStock), refresh works | Test suite |
-| 7 | Jest Tests | Establish early regression safety | cap-service/test/product.test.ts or end-to-end/product.test.ts | "Create Jest tests for Product service covering create sets LastUpdated..." | Timestamp asserted, negative action path tested | Performance baseline |
-| 8 | Performance Baseline | Capture initial latency & throughput | performance/k6-script.js or end-to-end/k6-script.js | "Generate k6 script hitting /odata/v4/ProductService/Product..." | 200 status check, duration & VUs configured, optional p95 threshold | Security pipeline |
-| 9 | Security & CI | Shift-left scanning & least-privilege | ci/workflow.yml, ci/codeql-config.yml | "Add CodeQL init/analyze and secret scanning steps..." | Build + scan jobs separated, minimal permissions, secrets not hardcoded | Knowledge Base |
-| 10 | Knowledge Base Enablement | Enhance prompt fidelity & consistency | docs/knowledge-base/domain-glossary.md, modernization-guidelines.md, logging-standards.md, knowledge-base.md | "Document ProductService using glossary definitions..." | Glossary terms appear, anti-pattern list extracted | Documentation expansion |
-| 11 | Documentation Expansion | Create architecture & onboarding clarity | docs/workshop/README.md, BEGINNER_GUIDE.md, governance-domain/README.md | "Draft architecture overview covering CAP service, Fiori UI, CI security..." | All layers referenced, onboarding steps match quickstart | Agentic automation |
-| 12 | Agentic Risk Service | Enrich low-stock data with severity score | agentic-automation/risk-service.js, agentic-automation/prompts-cheatsheet.md | "Create Express risk scoring service returning severity..." | Severity mapping correct, integration plan documented | Telemetry & enhancements |
-| 13 | Logging & Observability | Structured logs for traceability | end-to-end/logger.js, logging-standards.md | "Generate minimal structured JSON logger with correlationId..." | Levels implemented, correlationId injected | Telemetry + multi-tenancy |
-| 14 | Governance & ADRs | Capture decisions & modernization rules | end-to-end/ADR-001-adopt-cap.md, modernization-guidelines.md | "Generate ADR for adopting CAP..." | Decision context, alternatives, rationale present | Scaling & pilot |
-| 15 | Edge Cases & Validation | Surface risk and concurrency issues | README (Edge Cases), product-service.ts | "List potential race conditions in restock handler." | Race conditions identified, mitigation options listed | Hardening |
-| 16 | Pilot & Roadmap | Plan expansion & KPI tracking | README Wrap-Up, requirements KPIs | "List next enhancements for scalability." | KPIs defined (time saved, coverage), roadmap draft | Execution / scaling |
+## 🎯 Workshop Structure
 
-### Quick Cross-Reference (File Origin vs Prompt)
-| File | Origin Prompt (Representative) |
-|------|--------------------------------|
-| schema.cds | "Define an entity Product..." |
-| product-service.ts | "Generate CAP handler..." + "Add restock action..." |
-| productExtractHandler.ts | "Convert this ABAP SELECT..." |
-| annotations.cds | "Generate annotations for Product list view..." |
-| MainList.view.xml | "Add LowStock YES/NO indicator column..." |
-| product.test.ts | "Create Jest tests for Product service..." |
-| k6-script.js | "Generate k6 script hitting /odata..." |
-| workflow.yml | "Add CodeQL init, secret scanning..." |
-| domain-glossary.md | "Create domain glossary for Product inventory terms." |
-| ADR-001-adopt-cap.md | "Draft ADR choosing CAP over ABAP enhancements." |
-| risk-service.js | "Create Express risk scoring service..." |
-| logger.js | "Generate minimal structured JSON logger..." |
+### 🟢 **Level 100: Fundamentals** - *Core GitHub Copilot Features*
+**Target Audience:** Developers new to GitHub Copilot or SAP modernization
+**Duration:** 4-6 hours
+**Focus:** Master basic Copilot capabilities and generate working SAP solutions
 
-### Starter Prompt Pack
-1. Define an entity Product with fields ID(UUID), Name String(120), Stock Integer, LastUpdated Timestamp, derived LowStock (<5).
-2. Generate CAP handler setting LastUpdated before CREATE/UPDATE and deriving LowStock after READ.
-3. Add restock action validating positive amount and returning updated product.
-4. Convert this ABAP SELECT into CAP cds.run query mapping matnr->ID, maktx->Name, labst->Stock with limit 50 order by Stock desc.
-5. Generate annotations for Product list view with sortable Name and filterable Stock plus LowStock indicator.
-6. Create Jest tests for Product service covering create sets LastUpdated and restock negative amount error.
-7. Generate k6 script hitting /odata/v4/ProductService/Product with 20 VUs for 30s including status 200 check and p95 < 500ms.
-8. Add CodeQL init/analyze and secret scanning steps with least permissions to this workflow.
-9. Document ProductService using glossary definitions for Stock threshold and LastUpdated semantics.
-10. Create Express risk scoring service returning severity based on product stock.
+**Core Features Covered:**
+- ✅ **Code Completion** - Real-time suggestions and autocomplete
+- ✅ **Scaffolding** - Rapid project structure generation  
+- ✅ **Agent Mode** - Conversational coding assistance
+- ✅ **Natural Language to SQL (NES)** - Business queries to code
+- ✅ **Test Generation** - Comprehensive testing across ABAP, S/4HANA, Fiori
+- ✅ **Code Review** - AI-assisted quality checks
+- ✅ **Security Review** - Vulnerability scanning and fixes
 
-## 1. Workshop Purpose & Outcomes
-This hands-on guide shows how GitHub Copilot accelerates SAP-centric modernization across:
-- CAP (Cloud Application Programming Model) Node.js/TypeScript services
-- SAPUI5 / Fiori Elements UI scaffolding
-- ABAP side-by-side refactoring (using Eclipse ADT)
-- DevOps (GitHub Actions, CodeQL, secret scanning, Dependabot)
-- Governance & Knowledge Base enablement
+**Learning Path:** [Level 100 Guide](docs/workshop/LEVEL-100-GUIDE.md)
 
-By the end participants can:
-1. Generate a CAP service from natural language requirements
-2. Transform an ABAP report into a CAP service handler
-3. Scaffold a Fiori list/report UI with Copilot assistance
-4. Add automated tests & performance checks (Jest + k6) via prompts
-5. Integrate security scanning and OIDC deployment snippet into CI
-6. Build and refine a domain Knowledge Base for higher-fidelity completions
-7. Apply prompt patterns for refactoring, documentation, and risk analysis
+### 🔵 **Level 200: Advanced Mastery** - *Expert Techniques*
+**Target Audience:** Developers comfortable with Level 100 concepts
+**Duration:** 6-8 hours  
+**Focus:** Advanced prompt engineering and enterprise-grade solutions
+
+**Advanced Techniques Covered:**
+- 🚀 **Prompt Engineering** - Sophisticated prompt patterns for complex scenarios
+- 🧠 **Context Engineering** - Optimizing context windows for maximum accuracy
+- 📚 **Knowledge Base Integration** - Leveraging organizational knowledge
+- 🔄 **Iterative Refinement** - Master the prompt-refine-validate cycle
+- 🏗️ **Architecture-Aware Prompting** - Solutions that fit existing systems
+- 🎭 **Role-Based Prompting** - Expert personas for specialized outputs
+
+**Learning Path:** [Level 200 Guide](docs/workshop/LEVEL-200-GUIDE.md)
+
+### 🧪 **Test Cases Spotlight** - *Testing Excellence*
+**Special Focus:** Comprehensive testing strategies across the SAP stack
+**Coverage:** ABAP unit tests, CAP service integration, Fiori E2E, performance testing
+
+**Testing Highlights:** [Test Cases Spotlight](docs/workshop/TEST-CASES-SPOTLIGHT.md)
 
 ---
-## 2. Environment Setup
-### VS Code
-Prerequisites:
-- Node.js 18+
-- SAP CDS tools: `npm install -g @sap/cds-dk`
-- GitHub Copilot extensions: Copilot, Copilot Chat, Copilot for CLI (optional)
-- Git configured with enterprise access
 
-Recommended VS Code Extensions:
-- SAP CDS Language Support
-- XML Tools (for Fiori view tweaks)
-- YAML (workflow editing)
-- GitHub Actions
-- CodeQL (if running local queries)
+## 🚀 Quick Start
 
-### Eclipse ADT (ABAP Modernization Flow)
-Prerequisites:
-- Eclipse latest (2024+) plus ABAP Development Tools plugin
-- Connectivity to on-prem or S/4HANA ABAP system
-- Authorization to export reports/classes (read-only if production)
+Choose your learning path based on your experience level:
 
-Workflow (High-Level):
-1. Open ABAP report/program in Eclipse ADT
-2. Copy logic block (SELECTs, transformations)
-3. Paste into a temporary text file -> Use Copilot Chat: "Convert this ABAP data extraction into a CAP service handler using cds. Query should map to entity SalesOrder with fields ...".
-4. Iterate on resulting TypeScript handler (enrich with validations + events)
-5. Document modernization delta using prompt: "Summarize differences between original ABAP and CAP implementation focusing on scalability, testability, and security.".
+### For Beginners (Level 100)
+```bash
+# Clone the workshop
+git clone -b workshop https://github.com/Mihir11Kulkarni/GitHub-Copilot-SAP-Demo.git
+cd GitHub-Copilot-SAP-Demo
 
----
-## 3. Scenario Comparison Table
-| Scenario | Legacy Approach | Copilot-Accelerated Approach | Value Gain | Prompt Anchor |
-|----------|-----------------|------------------------------|-----------|---------------|
-| Create CRUD Service | Manual CDS + handler boilerplate | Natural language spec -> Copilot generates entity & handler skeleton | 60–70% time saved | "Define an entity Product with fields id, name, stock... generate CDS + handler." |
-| Refactor ABAP Extraction | Manual translation & SQL mapping | Paste ABAP, ask for CAP handler with equivalent query | Faster modernization & fewer translation errors | "Convert this ABAP code into CAP handler with cds.run." |
-| Fiori List UI | Handwrite XML view, annotations | Ask Copilot for Fiori Elements annotations + minimal controller | Rapid UI scaffolding | "Generate annotations for Product list view with sortable name & filter on stock." |
-| Add Jest Tests | Manual test harness | Prompt for tests (happy path + edge) | Better coverage early | "Create Jest tests for Product service including empty and invalid id cases." |
-| Performance Baseline | Unscripted or manual | Copilot generates k6 script from endpoint list | Early perf visibility | "Generate k6 test hitting /api/products list and detail endpoints." |
-| Secure Pipeline | Manual YAML & scanning config | Prompt to enhance with CodeQL + secret scan | Shift-left security | "Add CodeQL init and secret scanning steps to existing workflow." |
-| Knowledge Reuse | Tribal & scattered | Central KB -> context heavy prompts | Consistent generation quality | "Refactor handler using domain glossary terms from KB." |
-| Documentation | Manual readme writing | Copilot structured sections from outline | Speed + completeness | "Draft architecture overview covering CAP, Fiori, CI, security." |
-| Risk Service Addition | Manual design | Prompt microservice with expressive API & telemetry | Extensible resilience | "Create Express risk scoring service returning severity by product stock." |
-
----
-### Scenario Guide
-Each scenario below is expanded into a story: what to open, which prompt to use, how to validate, and the logical next step. Follow them in order for a smooth learning path.
-
-#### 1. Create CRUD Service
-Purpose: Establish the Product entity and basic lifecycle hooks.
-Open These:
-- `end-to-end/requirements.md` (understand fields & constraints)
-- `cap-service/schema.cds`
-Prompt Sequence:
-1. "Define an entity Product with fields ID(UUID), Name string(120), Stock Integer, LastUpdated timestamp, derived LowStock flag (<5)."
-2. "Generate CAP handler with before CREATE/UPDATE to set LastUpdated and after READ deriving LowStock." (Refine pseudo in `end-to-end/product-service.ts`.)
-Validation Checklist:
-- All fields & types match requirements
-- `LastUpdated` set before create/update
-- `LowStock` derived (<5)
-Next: Refactor ABAP extraction.
-
-#### 2. Refactor ABAP Extraction
-Purpose: Modernize legacy ABAP data access.
-Open:
-- `abap-modernization/abap-original.zreport.abap`
-- `abap-modernization/abap-transformed-handler.ts`
-Prompt Sequence:
-1. Paste ABAP: "Convert this ABAP SELECT into CAP cds.run query mapping matnr->ID, maktx->Name, labst->Stock with limit 50 order by Stock desc."
-2. "Explain scalability/testability improvements vs ABAP code."
-Validation:
-- Field mapping correct
-- Filter retained
-- Pagination + ordering applied
-Next: Build UI list view.
-
-#### 3. Fiori List UI
-Purpose: Visualize Products with key fields.
-Open:
-- `fiori-ui/manifest.json`
-- `fiori-ui/annotations.cds`
-- `fiori-ui/MainList.view.xml`
-- `fiori-ui/MainList.controller.js`
-Prompt Sequence:
-1. "Generate annotations for Product list view with sortable Name and filterable Stock." (Adjust existing.)
-2. "Add LowStock YES/NO indicator column to the XML view." 
-Validation:
-- Columns: ID, Name, Stock, LastUpdated (+ optional LowStock)
-- Refresh works
-Next: Add tests.
-
-#### 4. Add Jest Tests
-Purpose: Early quality & regression safety.
-Open: `quality-security/product.test.ts`
-Prompt Sequence:
-1. "Create Jest tests for Product service covering create sets LastUpdated, restock negative amount error, restock success." 
-2. "Add test for large restock amount to ensure no overflow issues." (Optional)
-Validation:
-- Assertions for timestamp & error path
-- Descriptive names
-Next: Performance baseline.
-
-#### 5. Performance Baseline
-Purpose: Capture initial load behavior.
-Open: `quality-security/k6-script.js`
-Prompt Sequence:
-1. "Generate k6 script for GET /odata/v4/ProductService/Product with 20 VUs for 30s including status 200 check." 
-2. "Add p95 response time threshold < 500ms." 
-Validation:
-- Script GETs list endpoint
-- Threshold defined (if added)
-Next: Secure pipeline.
-
-#### 6. Secure Pipeline
-Purpose: Shift-left security scanning.
-Open:
-- `quality-security/workflow.yml`
-- `quality-security/codeql-config.yml`
-Prompt Sequence:
-1. "Add CodeQL init/analyze steps to Node workflow with least permissions." 
-2. "Suggest improvements removing unnecessary permissions from workflow.yml." 
-Validation:
-- Separate build & CodeQL jobs
-- Minimal deploy permissions
-Next: Knowledge Base.
-
-#### 7. Knowledge Reuse (Knowledge Base)
-Purpose: Improve prompt fidelity using shared glossary & guidelines.
-Open:
-- `governance-domain/domain-glossary.md`
-- `governance-domain/modernization-guidelines.md`
-- `governance-domain/logging-standards.md`
-- `governance-domain/knowledge-base.md`
-Prompt Sequence:
-1. "Document ProductService using glossary definitions for Stock and LowStock." 
-2. "Summarize modernization-guidelines.md into a migration checklist." 
-3. "List anti-patterns from modernization-guidelines.md for ABAP to CAP migration." 
-Validation:
-- Glossary terms appear
-- Checklist actionable
-Next: Documentation expansion.
-
-#### 8. Documentation Expansion
-Purpose: Clear architecture & onboarding clarity.
-Open: `README.md`, `BEGINNER_GUIDE.md`, `governance-domain/README.md`
-Prompt Sequence:
-1. "Draft architecture overview covering CAP service, Fiori UI, CI security, and risk service extension." 
-2. "Generate onboarding checklist referencing glossary terms." 
-Validation:
-- Architecture doc references all layers
-- Onboarding list mirrors quickstart commands
-Next: Agentic automation.
-
-#### 9. Risk Service Addition (Agentic Automation)
-Purpose: Extend functionality with intelligent scoring.
-Open:
-- `agentic-automation/risk-service.js`
-- `agentic-automation/prompts-cheatsheet.md`
-Prompt Sequence:
-1. "Create Express risk scoring service returning severity by product stock." (Already present)
-2. "Propose integration in CAP after READ to enrich LowStock products with severity." 
-3. "Suggest telemetry fields for risk evaluation logging." 
-Validation:
-- Severity logic matches thresholds
-- Integration path documented
-Next: Optional telemetry & multi-tenancy enhancements.
-
-#### Progression Path Recap
-CRUD -> ABAP Modernization -> UI -> Tests -> Performance -> Security -> Knowledge Base -> Documentation -> Automation.
-This chain builds understanding and assets for the next layer.
-
-## 4. Repository Structure
+# Start with Level 100 Guide
+open docs/workshop/LEVEL-100-GUIDE.md
 ```
-workshop/
-  cap-service/
-    package.json
-    srv/
-      product-service.ts
-    db/
-      schema.cds
-    test/
-      product.test.ts
-  fiori-ui/
-    webapp/
-      manifest.json
-      annotations.cds
-      src/
-        MainList.view.xml
-        MainList.controller.js
-  abap-modernization/
-    original/
-      z_report_sample.abap
-    transformed/
-      productExtractHandler.ts
-  performance/
-    k6-script.js
-  ci/
-    workflow.yml
-  docs/
-    knowledge-base/
-      domain-glossary.md
-      modernization-guidelines.md
-      logging-standards.md
-    architecture.md
+
+### For Experienced Developers (Level 200)
+```bash
+# If you've completed Level 100 or have Copilot experience
+open docs/workshop/LEVEL-200-GUIDE.md
+```
+
+### For Testing Focus
+```bash
+# Deep dive into testing capabilities
+open docs/workshop/TEST-CASES-SPOTLIGHT.md
 ```
 
 ---
-## 5. Code Examples (Before / After / Generated)
-### 5.1 CDS Entity (Prompt-Generated)
-Prompt: "Create a CDS entity Product with id UUID key, name string(120), stock Integer, lastUpdated timestamp." Result:
-```cds
-entity Product {
-  key ID         : UUID;
-  Name           : String(120);
-  Stock          : Integer;
-  LastUpdated    : Timestamp;
-}
+
+## 🎯 Learning Outcomes
+
+### After Level 100, you will be able to:
+- ✅ Use code completion effectively for SAP development
+- ✅ Scaffold complete SAP projects in minutes
+- ✅ Generate comprehensive test suites across ABAP, CAP, and Fiori
+- ✅ Perform AI-assisted code reviews and security scans
+- ✅ Convert business requirements to working code
+- ✅ Modernize ABAP code to CAP services
+
+### After Level 200, you will master:
+- 🚀 Advanced prompt engineering for complex scenarios
+- 🧠 Context optimization for enterprise solutions  
+- 📚 Knowledge base integration for consistent outputs
+- 🏗️ Architecture-aware solution generation
+- 🎭 Role-based prompting for specialized expertise
+- 🔄 Iterative refinement techniques
+
+---
+
+## 🧪 Test Case Excellence
+
+This workshop places special emphasis on **testing with GitHub Copilot**:
+
+### ABAP Testing
+- Unit tests with realistic business scenarios
+- Integration tests with database mocking
+- Performance benchmarks for legacy code
+
+### S/4HANA & CAP Testing  
+- Comprehensive service unit tests
+- OData integration validation
+- Concurrent operation testing
+- Error handling and edge cases
+
+### Fiori UI Testing
+- QUnit component tests
+- End-to-end user workflow validation
+- Cross-browser and mobile testing
+- Accessibility compliance testing
+
+### Performance & Load Testing
+- k6-based load testing scenarios
+- Realistic user behavior simulation
+- Performance regression detection
+
+---
+
+## 📁 Repository Structure
 ```
-
-### 5.2 Service Handler (Generated & Refined)
-Initial Prompt: "Generate CAP Node.js handler exposing CRUD for Product and auto-update LastUpdated before save."
-```ts
-// srv/product-service.ts
-import cds from '@sap/cds'
-
-class ProductService extends cds.ApplicationService {
-  async init() {
-    const { Product } = this.entities
-
-    this.before(['CREATE','UPDATE'], Product, async (req) => {
-      req.data.LastUpdated = new Date()
-    })
-
-    this.after('READ', Product, (each) => {
-      if (Array.isArray(each)) each.forEach(e => e.IsLowStock = e.Stock < 5)
-      else if (each) each.IsLowStock = each.Stock < 5
-    })
-
-    return super.init()
-  }
-}
-module.exports = ProductService
-```
-Refinement Prompt: "Add custom action restock(id, amount) with validation and return updated product." Added:
-```ts
-this.on('restock', Product, async (req) => {
-  const { id, amount } = req.data
-  if (!amount || amount <= 0) return req.error(400, 'Positive amount required')
-  await UPDATE(Product).set({ Stock: { '+=': amount }, LastUpdated: new Date() }).where({ ID: id })
-  const [updated] = await SELECT.from(Product).where({ ID: id })
-  return updated
-})
-```
-
-### 5.3 ABAP to CAP Transformation
-ABAP Fragment (Original):
-```abap
-SELECT matnr, maktx, labst
-  FROM mara INNER JOIN mard ON mara.matnr = mard.matnr
-  INTO TABLE @DATA(lt_materials)
-  WHERE mard.lgort = '0001'.
-```
-Prompt: "Convert this ABAP SELECT into a CAP handler logic retrieving Product with fields (ID, Name, Stock) mapped from matnr, maktx, labst." Result:
-```ts
-const rows = await cds.run(SELECT.from(Product).columns(['ID','Name','Stock']).where({ Plant: '0001' }))
-```
-Refinement Prompt: "Add pagination (limit 50) and order by Stock descending." ->
-```ts
-const rows = await cds.run(SELECT.from(Product).columns(['ID','Name','Stock']).where({ Plant: '0001' }).orderBy({ Stock: 'desc' }).limit(50))
-```
-
-### 5.4 Jest Tests 
-Prompt: "Create Jest tests for ProductService covering create sets LastUpdated and restock action error path." Result:
-```ts
-import cds from '@sap/cds'
-import supertest from 'supertest'
-
-describe('ProductService', () => {
-  const { GET, POST } = cds.test()
-
-  test('create sets LastUpdated', async () => {
-    const res = await POST('/odata/v4/ProductService/Product', { Name: 'Widget', Stock: 3 })
-    expect(res.data.LastUpdated).toBeDefined()
-  })
-
-  test('restock rejects non-positive', async () => {
-    const res = await POST('/odata/v4/ProductService/restock', { id: '00000000-0000-0000-0000-000000000001', amount: 0 })
-    expect(res.errors[0].message).toMatch(/Positive amount/)
-  })
-})
-```
-
-### 5.5 Performance Test (k6)
-Prompt: "Generate k6 script load testing Product list endpoint for 30s, 20 VUs." Result:
-```js
-import http from 'k6/http'
-import { sleep } from 'k6'
-export const options = { duration: '30s', vus: 20 }
-export default function () {
-  http.get('https://example.local/api/products')
-  sleep(1)
-}
+GitHub-Copilot-SAP-Demo/
+├── docs/workshop/
+│   ├── LEVEL-100-GUIDE.md       # Beginner learning path
+│   ├── LEVEL-200-GUIDE.md       # Advanced techniques  
+│   ├── TEST-CASES-SPOTLIGHT.md  # Comprehensive testing guide
+│   ├── GUIDE.md                 # Original quick start guide
+│   └── [scenario folders]/      # Hands-on exercises
+├── README.md                    # This file
+└── [workshop materials]/        # Code examples and templates
 ```
 
 ---
-## 6. Prompt–Output Pairs (Playbook)
-| Goal | Prompt | Expected Output | Notes |
-|------|--------|-----------------|-------|
-| Generate CDS | "Define Product entity..." | Valid CDS snippet | Validate types align to domain glossary |
-| Add Action | "Add restock action with validation" | on('restock', ...) handler | Include error response paths |
-| ABAP Modernization | "Convert ABAP SELECT..." | Equivalent cds.run SELECT | Check filtering semantics |
-| Test Generation | "Create Jest tests..." | test(...) blocks | Ensure edge case included |
-| Performance | "Generate k6 script..." | k6 JS script | Adjust VUs later for scale |
-| Docs Outline | "Draft architecture overview..." | Markdown section scaffolding | Refine after KB enrichment |
-| Security Pipeline | "Add CodeQL + secret scan..." | YAML steps | Ensure minimal permissions |
-| Refactor Quality | "Suggest improvements to handler for readability" | Diff suggestions | Apply selectively |
+
+## 🎓 Certification Path
+
+1. **Complete Level 100** - Master fundamental Copilot features
+2. **Complete Level 200** - Achieve advanced prompt engineering skills  
+3. **Complete Test Spotlight** - Demonstrate testing excellence
+4. **Build Capstone Project** - Apply skills to real-world scenario
+5. **Share Knowledge** - Mentor others or contribute to community
 
 ---
-## 7. Knowledge Base Setup 
-Recommended KB Documents:
-- domain-glossary.md (business entities, field semantics)
-- modernization-guidelines.md (ABAP -> CAP patterns, naming, layering)
-- logging-standards.md (structured logger shape, correlation id)
-- architecture.md (service boundaries, Fiori consumption, CI pipeline)
 
-Upload / Index Steps:
-1. Author docs in `docs/knowledge-base/`
-2. Commit & push to enterprise GitHub
-3. In Copilot Enterprise: Create Knowledge Base -> Select repository
-4. Scope indexing (only /docs/knowledge-base for initial precision)
-5. Test prompt: "Using glossary terms, generate ProductService documentation." Assess domain term usage.
+## 🤝 Contributing
 
-Before/After Example:
-Prompt (Before KB): "Document ProductService." -> Generic CRUD description.
-Prompt (After KB): "Document ProductService using glossary definitions for Stock threshold and LastUpdated semantics." -> Enriched narrative with domain-coded vocabulary.
-
-KB Quality Prompts:
-- "Summarize modernization-guidelines.md into a migration checklist."
-- "List anti-patterns from modernization-guidelines.md for ABAP to CAP."
+Help improve this workshop:
+- Submit feedback on learning materials
+- Share advanced prompt patterns
+- Contribute test case examples
+- Translate content for global teams
 
 ---
-## 8. GitHub Actions CI 
-Prompt: "Add CodeQL init, secret scanning, and OIDC deploy job to existing Node workflow." Example fragment:
-```yaml
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18
-      - run: npm ci
-      - run: npm test
 
-  codeql:
-    uses: github/codeql-action/init@v3
+## 📞 Support
 
-  deploy:
-    permissions:
-      id-token: write
-      contents: read
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Login Azure via OIDC
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      - name: Deploy (placeholder)
-        run: echo "Deploy service here"
-```
+- **Issues:** [GitHub Issues](https://github.com/Mihir11Kulkarni/GitHub-Copilot-SAP-Demo/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/Mihir11Kulkarni/GitHub-Copilot-SAP-Demo/discussions)
+- **Community:** Join SAP Community GitHub Copilot group
 
 ---
-## 9. Onboarding Checklist
-Developer Onboarding:
-- [ ] Install Node.js, cds-dk, VS Code extensions
-- [ ] Enable GitHub Copilot + Chat (verify org policy)
-- [ ] Clone repository & run `cds deploy --to sqlite`
-- [ ] Execute Jest tests -> confirm passing
-- [ ] Run k6 performance baseline (optional)
-- [ ] Read domain-glossary.md & modernization-guidelines.md
-- [ ] Try 3 starter prompts (CDS generation, ABAP conversion, test creation)
-- [ ] Submit one pull request using Copilot-assisted changes + description
-- [ ] Add an ADR entry (if architecture decision required)
 
-Governance / Maintainer:
-- [ ] Validate KB documents kept current each sprint
-- [ ] Review Copilot suggestion logs for low-confidence areas
-- [ ] Run CodeQL weekly query suite for custom patterns
-- [ ] Monitor dependency updates (Dependabot alerts)
+## 📚 Additional Resources
 
-Security:
-- [ ] Confirm secret scanning active
-- [ ] Enforce branch protection (CODEOWNERS for critical dirs)
-- [ ] Threat model service additions quarterly
+- [GitHub Copilot Documentation](https://docs.github.com/en/copilot)
+- [SAP CAP Documentation](https://cap.cloud.sap/docs/)
+- [SAP Fiori Design Guidelines](https://experience.sap.com/fiori-design-web/)
+- [ABAP Development Guidelines](https://help.sap.com/docs/abap-cloud)
 
----
-## 10. Prompt Patterns Cheat Sheet
-| Pattern | Template | Use Case |
-|---------|----------|----------|
-| Spec-to-Code | "Generate [artifact] for [domain] with fields [x]" | CDS, handlers |
-| Refactor | "Improve readability of this code focusing on [criterion]" | Cleanups |
-| Modernize | "Translate this ABAP logic to CAP with equivalent functionality" | Migration |
-| Test Authoring | "Create tests covering [paths] including edge cases [x]" | Jest suites |
-| Doc Enrichment | "Document [component] referencing glossary definitions" | KB leverage |
-| Performance | "Produce k6 script load testing endpoints [list]" | Baseline perf |
-| Security Hardening | "Suggest security improvements for this workflow" | CI enhancements |
-
----
-## 11. Edge Cases & Validation Strategy
-Edge Cases to Test:
-- Product creation missing Stock
-- Restock negative amount
-- Low inventory threshold logic (<5)
-- High concurrency restock (simulate parallel updates)
-- ABAP transformation preserving filter semantics
-
-Validation Prompts:
-- "List potential race conditions in restock handler." -> Suggest transactional locking or UPDATE semantics.
-- "Explain how to handle pagination + filtering together." -> Ensure robust SELECT usage.
-
----
-## 12. Quickstart Commands
-(Note: Run manually; shown for documentation)
-- Initialize CAP: `cds init cap-service`
-- Run service: `cds watch`
-- Execute tests: `npm test`
-- Run k6: `k6 run performance/k6-script.js`
-
----
-## 13. Appendix: Additional Prompts
-- "Generate ADR for adopting CAP over direct ABAP enhancements."
-- "Create threat model checklist for ProductService endpoints."
-- "Suggest logging schema for correlation-friendly JSON logs."
-- "Draft multi-tenancy scaling strategy with schema isolation." 
-
----
-## 14. End-to-End Example Directory
-See `end-to-end/` folder (to be generated) for a complete lifecycle:
-1. Requirements & user stories
-2. ADR (CAP adoption)
-3. Domain model (`schema.cds`)
-4. Service implementation (`product-service.ts`)
-5. ABAP original snippet and transformed handler
-6. Fiori UI scaffold (manifest, annotations, view, controller)
-7. Tests (Jest) + performance script (k6)
-8. CI workflow (build, test, CodeQL, OIDC deploy placeholder)
-9. Logging utility
-10. Deployment readiness checklist
-
-Each artifact includes the originating prompt (in comments or README) and resulting output for traceability.
-
----
-## 15. Copilot Value Snapshot 
-| Stage | Copilot Assist | Outcome |
-|-------|----------------|---------|
-| Model | "Create Product entity..." | Ready CDS faster |
-| Modernize | "Translate ABAP to CAP..." | Legacy logic becomes Node service |
-| Action | "Add restock action with validation" | Business rule captured quickly |
-| Test | "Generate Jest tests..." | Early quality & regression safety |
-| Perf | "Generate k6 script..." | Baseline performance visibility |
-| Security | "Add CodeQL scanning..." | Shift-left security bake-in |
-| Docs | "Document ProductService using glossary" | Clear domain onboarding |
-
-## 16. Wrap-Up
-Core workshop guidance plus full end-to-end example and beginner guide. If new to SAP/GitHub, start with `GUIDE.md` then return here for deeper exploration.
+**Ready to transform your SAP development with GitHub Copilot? Start with [Level 100](docs/workshop/LEVEL-100-GUIDE.md)!**
