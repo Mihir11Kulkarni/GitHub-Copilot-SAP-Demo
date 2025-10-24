@@ -32,13 +32,13 @@ Upon completion of this workshop, participants will be able to:
 ## 📚 **Program Structure**
 
 ### **Track A: Developer Fundamentals** (Level 100)
-*Duration: 4-6 hours | Target: Developers new to GitHub Copilot*
+*Target: Developers new to GitHub Copilot*
 
 ### **Track B: Advanced Mastery** (Level 200) 
-*Duration: 6-8 hours | Target: Experienced developers and architects*
+*Target: Experienced developers and architects*
 
 ### **Track C: Enterprise Administration** (MCP Setup)
-*Duration: 2-4 hours | Target: Admin teams and solution architects*
+*Target: Admin teams and solution architects*
 
 ---
 
@@ -219,25 +219,25 @@ Upon completion of this workshop, participants will be able to:
 
 ## 📋 **Delivery Options**
 
-### **Option 1: Intensive Program** (2 Days)
+### **Option 1: Intensive Program**
 - **Day 1:** Track A (Level 100 Fundamentals)
 - **Day 2:** Track B (Level 200 Advanced Mastery)
 - **Target:** Complete developer upskilling
 
-### **Option 2: Enterprise Comprehensive** (3 Days)
+### **Option 2: Enterprise Comprehensive**
 - **Day 1:** Track A (Level 100 Fundamentals)
 - **Day 2:** Track B (Level 200 Advanced Mastery)
 - **Day 3:** Track C (MCP Enterprise Setup)
 - **Target:** Full organizational enablement
 
-### **Option 3: Modular Sessions** (4 Half-Days)
+### **Option 3: Modular Sessions**
 - **Session 1:** Level 100 Modules 1-2
 - **Session 2:** Level 100 Modules 3-4 + Assessment
 - **Session 3:** Level 200 Modules 5-6
 - **Session 4:** Level 200 Module 7 + MCP Overview
 - **Target:** Flexible scheduling accommodation
 
-### **Option 4: Administrator Focus** (1 Day)
+### **Option 4: Administrator Focus**
 - **Track C Only:** Complete MCP setup and enterprise integration
 - **Target:** Admin teams and solution architects
 
